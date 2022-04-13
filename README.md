@@ -1,15 +1,24 @@
 <p align="center"><img src="./docs/assets/make-logo.png"></p>
 <h2 align="center">Everyday tools for simpler React Native development</h2>
 
+## About the fork
+
+Here are the differences from the upstream:
+- setIcon now exits the process with code 1 when sharp throws errors, 
+- non rectangular image is now resized as expected, previously it was ignored and no icon was generated,
+- alpha is now removed using flatten rather than removeAlpha which produces very ugly results
+- updated dependencies
+
 ## ⚙️ Setup
 
 In your react-native project folder, run:
 
 ```bash
-yarn add -D @bam.tech/react-native-make
+yarn add -D Ribbon-Experiences/react-native-make
 # OR
-npm i -D @bam.tech/react-native-make
+npm i -D Ribbon-Experiences/react-native-make
 ```
+And go into your package.json and edit the `@momence/react-native-make` into `"@bam.tech/react-native-make":`. THis is needed for this to work in react-native as a plugin.
 
 **Please note:** This plugin only supports react-native-cli v2+
 
