@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.config = void 0;
+const iosSplashImage = {
+    size: 896,
+    multipliers: [1, 2, 3],
+    backgroundColor: { r: 0, g: 0, b: 0, alpha: 0 },
+};
+const iosStoryboardName = 'SplashScreen';
+exports.config = {
+    iosSplashImage,
+    iosStoryboardName,
+};
