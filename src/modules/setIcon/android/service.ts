@@ -1,4 +1,4 @@
-import { checkImageIsSquare, generateResizedAssets } from '../../../services/image.processing';
+import { generateResizedAssets } from '../../../services/image.processing';
 import { config } from './config';
 import { ANDROID_MAIN_PATH, ANDROID_MAIN_RES_PATH } from '../../config';
 import { join } from 'path';
@@ -6,18 +6,13 @@ import { copyFile, replaceInFile } from '../../../services/file.processing';
 import { getHexColor } from '../../../services/color.processing';
 
 export const addAndroidIcon = async (iconSource: string, backgroundColor: string) => {
-  try {
-    await checkImageIsSquare(iconSource);
-    await generateLegacyIcons(iconSource);
-    await generateAdaptiveIcons(iconSource, backgroundColor);
-  } catch (err) {
-    console.log(err);
-  }
+  await generateLegacyIcons(iconSource);
+  await generateAdaptiveIcons(iconSource, backgroundColor);
 };
 
 const generateLegacyIcons = (iconSource: string) =>
   Promise.all(
-    config.androidIconSizes.map(size =>
+    config.androidIconSizes.map((size) =>
       generateResizedAssets(
         iconSource,
         `${ANDROID_MAIN_RES_PATH}/mipmap-${size.density}/ic_launcher.png`,
@@ -61,7 +56,9 @@ const generateAdaptiveIcons = (iconSource: string, backgroundColor: string) => {
   );
 
   return Promise.all(
-    config.androidIconSizes.map(size => generateAdaptiveIcon(iconSource, size.density, size.value))
+    config.androidIconSizes.map((size) =>
+      generateAdaptiveIcon(iconSource, size.density, size.value)
+    )
   );
 };
 

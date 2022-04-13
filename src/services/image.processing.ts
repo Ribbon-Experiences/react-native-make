@@ -8,13 +8,11 @@ export const generateResizedAssets = async (
   width: number,
   height: number = width,
   options: ResizeOptions = {
-    fit: 'contain',
+    fit: 'cover',
   }
 ) => {
   createDirectoryIfNotExists(destinationPath);
-  return sharp(normalize(sourcePath))
-    .resize(width, height, options)
-    .toFile(destinationPath);
+  return sharp(normalize(sourcePath)).resize(width, height, options).toFile(destinationPath);
 };
 
 export const generateResizedAssetsWithoutAlpha = async (
@@ -22,20 +20,12 @@ export const generateResizedAssetsWithoutAlpha = async (
   destinationPath: string,
   width: number,
   height: number = width,
-  options: ResizeOptions = {
-    fit: 'contain',
-  }
+  options: ResizeOptions,
+  backgroundColor: string
 ) => {
   createDirectoryIfNotExists(destinationPath);
   return sharp(normalize(sourcePath))
     .resize(width, height, options)
-    .removeAlpha()
+    .flatten({ background: backgroundColor ?? { r: 0, g: 0, b: 0 } })
     .toFile(destinationPath);
-};
-
-export const checkImageIsSquare = async (sourcePath: string) => {
-  const { width, height } = await sharp(normalize(sourcePath)).metadata();
-  if (width !== height) {
-    throw new Error('Image is not squared');
-  }
 };

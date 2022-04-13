@@ -7,13 +7,13 @@ export const setIconTask = async (argv: string[], config: Config, args: Record<s
   const { path, platform, background } = args;
   switch (platform) {
     case EPlatform.IOS:
-      await addIosIcon(path);
+      await addIosIcon(path, background);
       break;
     case EPlatform.ANDROID:
       await addAndroidIcon(path, background);
       break;
     case EPlatform.ALL:
-      await addIosIcon(path);
+      await addIosIcon(path, background);
       await addAndroidIcon(path, background);
       break;
     default:
