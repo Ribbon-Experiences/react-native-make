@@ -63,7 +63,12 @@ const addReactNativeSplashScreen = (
 
   const onCreateRegExp = /^.*onCreate.*[\r\n]/gm;
 
-  if (readFile(mainActivityPath).match(onCreateRegExp)) {
+  const mainActivityContent = readFile(mainActivityPath);
+  const hasOnCreate = mainActivityContent.match(onCreateRegExp);
+  if (hasOnCreate) {
+    if (mainActivityContent.match(/^.*SplashScreen\.show.*[\r\n]/gm)) {
+      return;
+    }
     applyPatch(mainActivityPath, {
       pattern: onCreateRegExp,
       patch: 'SplashScreen.show(this, R.style.SplashScreenTheme);',
