@@ -41,7 +41,12 @@ const addReactNativeSplashScreen = (backgroundColor, resizeMode = type_1.EResize
         patch: 'import android.os.Bundle;\n' + 'import org.devio.rn.splashscreen.SplashScreen;\n',
     });
     const onCreateRegExp = /^.*onCreate.*[\r\n]/gm;
-    if ((0, file_processing_1.readFile)(mainActivityPath).match(onCreateRegExp)) {
+    const mainActivityContent = (0, file_processing_1.readFile)(mainActivityPath);
+    const hasOnCreate = mainActivityContent.match(onCreateRegExp);
+    if (hasOnCreate) {
+        if (mainActivityContent.match(/^.*SplashScreen\.show.*[\r\n]/gm)) {
+            return;
+        }
         (0, file_processing_1.applyPatch)(mainActivityPath, {
             pattern: onCreateRegExp,
             patch: 'SplashScreen.show(this, R.style.SplashScreenTheme);',
