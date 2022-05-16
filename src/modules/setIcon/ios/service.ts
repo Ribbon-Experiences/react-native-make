@@ -19,7 +19,7 @@ const generateIosIcons = (iconSource: string, iosIconFolder: string, backgroundC
             sizePx,
             sizePx,
             {
-              fit: 'cover',
+              fit: 'contain',
             },
             backgroundColor
           );
